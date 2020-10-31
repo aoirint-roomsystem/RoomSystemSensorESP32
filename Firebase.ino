@@ -25,13 +25,14 @@ void initFirebase() {
   Serial.println("Firebase initialzed");
 }
 
-void pushSensorToFirebase(int light, int temperature) {
+void pushSensorToFirebase(int light, int temperatureRaw, float temperature) {
   String sensorRoot = "/sensor";
   String dataRoot = sensorRoot + "/environment";
 
   json.clear();
   json.add("light", light);
   json.add("temperature", temperature);
+  json.add("temperatureRaw", temperatureRaw);
   
   FirebaseJson jsonTimestamp;
   jsonTimestamp.add(".sv", "timestamp");
