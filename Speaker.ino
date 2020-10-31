@@ -10,8 +10,12 @@ void initSpeaker() {
 
   dfPlayer.setTimeOut(500);
   dfPlayer.pause();
-  dfPlayer.volume(10);  //Set volume value. From 0 to 30
-  dfPlayer.play(1);  //Play the first mp3
+  dfPlayer.volume(10); // [0, 30]
+}
+
+void playSound(int soundId) {
+  dfPlayer.pause();
+  dfPlayer.play(soundId);
 }
 
 void connectSpeaker() {

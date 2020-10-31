@@ -23,7 +23,8 @@ void setup() {
   initFirebase();
 
   initSensor();
-  // initDoor();
+  initDoorState();
+  initResponseButton();
   initSpeaker();
 
   blink(3, 1000);
@@ -33,8 +34,6 @@ void setup() {
 void loop() {
   updateSensor();
   updateSpeaker();
-  // updateDoor();
-
-  // delay(1*60*1000);
-  delay(5 * 60 * 1000);
+  updateDoorState();
+  updateResponseButton();
 }

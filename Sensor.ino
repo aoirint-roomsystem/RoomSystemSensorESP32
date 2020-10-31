@@ -1,3 +1,4 @@
+long prevSensorRead = 0;
 
 void initSensor() {
   adc1_config_width(ADC_WIDTH_BIT_10);
@@ -6,6 +7,11 @@ void initSensor() {
 }
 
 void updateSensor() {
+  long timestamp = millis();
+  if (!(timestamp - prevSensorRead > 5 * 1000)) {
+    return;
+  }
+  
   int light = readLight();
   int temperature = readTemperature();
 
@@ -16,6 +22,8 @@ void updateSensor() {
   Serial.print(", temperature: ");
   Serial.print(temperature);
   Serial.println();
+
+  prevSensorRead = timestamp;
 }
 
 int readLight() {

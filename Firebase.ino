@@ -27,7 +27,7 @@ void initFirebase() {
 
 void pushSensorToFirebase(int light, int temperature) {
   String sensorRoot = "/sensor";
-  String dataRoot = sensorRoot + "/data";
+  String dataRoot = sensorRoot + "/environment";
 
   json.clear();
   json.add("light", light);
@@ -38,13 +38,73 @@ void pushSensorToFirebase(int light, int temperature) {
   json.add("timestamp", jsonTimestamp);
   
   if (Firebase.pushJSON(firebaseData, dataRoot, json)) {
-    Serial.println("Firebase PushData OK");
+    Serial.println("Firebase PushSensorData OK");
     Serial.println(firebaseData.pushName());
     Serial.println(firebaseData.ETag());
   }
   else {
-    Serial.println("Firebase PushData Failed");
+    Serial.println("Firebase PushSensorData Failed");
     Serial.println(firebaseData.errorReason());
   }
   
+}
+
+void updateDoorStateForFirebase(int doorIsOpen) {
+  String sensorRoot = "/sensor";
+  String dataRoot = sensorRoot + "/door";
+  
+  json.clear();
+  json.add("isOpen", doorIsOpen);
+  
+  FirebaseJson jsonTimestamp;
+  jsonTimestamp.add(".sv", "timestamp");
+  json.add("timestamp", jsonTimestamp);
+  
+  if (Firebase.updateNode(firebaseData, dataRoot, json)) {
+    Serial.println("Firebase UpdateDoorState OK");
+  }
+  else {
+    Serial.println("Firebase UpdateDoorState Failed");
+    Serial.println(firebaseData.errorReason());
+  }
+}
+
+void updateNowButtonStateForFirebase(int buttonIsPressed) {
+  String sensorRoot = "/sensor";
+  String dataRoot = sensorRoot + "/button/now";
+  
+  json.clear();
+  json.add("isPressed", buttonIsPressed);
+  
+  FirebaseJson jsonTimestamp;
+  jsonTimestamp.add(".sv", "timestamp");
+  json.add("timestamp", jsonTimestamp);
+  
+  if (Firebase.updateNode(firebaseData, dataRoot, json)) {
+    Serial.println("Firebase UpdateNowButtonState OK");
+  }
+  else {
+    Serial.println("Firebase UpdateNowButtonState Failed");
+    Serial.println(firebaseData.errorReason());
+  }
+}
+
+void updateWaitButtonStateForFirebase(int buttonIsPressed) {
+  String sensorRoot = "/sensor";
+  String dataRoot = sensorRoot + "/button/wait";
+  
+  json.clear();
+  json.add("isPressed", buttonIsPressed);
+  
+  FirebaseJson jsonTimestamp;
+  jsonTimestamp.add(".sv", "timestamp");
+  json.add("timestamp", jsonTimestamp);
+  
+  if (Firebase.updateNode(firebaseData, dataRoot, json)) {
+    Serial.println("Firebase UpdateWaitButtonState OK");
+  }
+  else {
+    Serial.println("Firebase UpdateWaitButtonState Failed");
+    Serial.println(firebaseData.errorReason());
+  }
 }
