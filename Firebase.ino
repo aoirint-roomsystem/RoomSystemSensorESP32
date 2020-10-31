@@ -1,5 +1,17 @@
-#define FIREBASE_HOST "FIREBASE-PROJECT-ID.firebaseio.com"
-#define FIREBASE_AUTH "FIREBASE-DATABASE-SECRET"
+#define _Q(x) #x
+#define Q(x) _Q(x)
+
+#ifdef SECRET_FIREBASE_HOST
+  #define FIREBASE_HOST Q(SECRET_FIREBASE_HOST)
+#else
+  #define FIREBASE_HOST "FIREBASE-PROJECT-ID.firebaseio.com"
+#endif
+
+#ifdef SECRET_FIREBASE_AUTH
+  #define FIREBASE_AUTH Q(SECRET_FIREBASE_AUTH)
+#else
+  #define FIREBASE_AUTH "FIREBASE-DATABASE-SECRET"
+#endif
 
 FirebaseData firebaseData;
 FirebaseJson json;
