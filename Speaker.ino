@@ -10,7 +10,7 @@ void initSpeaker() {
 
   dfPlayer.setTimeOut(500);
   dfPlayer.pause();
-  dfPlayer.volume(10); // [0, 30]
+  dfPlayer.volume(30); // [0, 30]
 }
 
 void playSound(int soundId) {
@@ -20,7 +20,7 @@ void playSound(int soundId) {
 
 void connectSpeaker() {
   speakerSerial.begin(9600);
-  
+
   Serial.println("DFPlayer connecting");
   while (!dfPlayer.begin(speakerSerial)) {
     Serial.print(".");
@@ -36,7 +36,7 @@ void updateSpeaker() {
   }
 }
 
-void printDetail(uint8_t type, int value){
+void printDetail(uint8_t type, int value) {
   switch (type) {
     case TimeOut:
       Serial.println(F("Time Out!"));
@@ -95,5 +95,5 @@ void printDetail(uint8_t type, int value){
     default:
       break;
   }
-  
+
 }

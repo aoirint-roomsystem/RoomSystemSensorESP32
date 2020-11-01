@@ -2,7 +2,8 @@
 #define TMPR_V_OFFSET        0.6
 #define TMPR_DEGREE_PER_VOLT 0.01
 
-long prevSensorRead = -100000;
+long prevSensorRead = 0L;
+bool firstRead = true;
 
 void initSensor() {
   adc1_config_width(ADC_WIDTH_BIT_10);
@@ -12,7 +13,7 @@ void initSensor() {
 
 void updateSensor() {
   long timestamp = millis();
-  if (!(timestamp - prevSensorRead > 5 * 60 * 1000)) {
+  if (!firstRead && timestamp - prevSensorRead < 5L * 60L * 1000L) {
     return;
   }
   
@@ -31,6 +32,7 @@ void updateSensor() {
   Serial.println();
 
   prevSensorRead = timestamp;
+  firstRead = false;
 }
 
 int readLight() {
