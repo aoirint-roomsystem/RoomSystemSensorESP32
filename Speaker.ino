@@ -1,3 +1,7 @@
+#ifndef SOUND_VOLUME
+  #define SOUND_VOLUME 10
+#endif
+
 #include "Arduino.h"
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
@@ -10,7 +14,7 @@ void initSpeaker() {
 
   dfPlayer.setTimeOut(500);
   dfPlayer.pause();
-  dfPlayer.volume(30); // [0, 30]
+  dfPlayer.volume(SOUND_VOLUME); // [0, 30]
 }
 
 void playSound(int soundId) {

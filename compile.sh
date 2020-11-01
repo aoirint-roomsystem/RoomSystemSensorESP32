@@ -9,9 +9,14 @@ if [ -f .env ]; then
     export $(cat .env | sed 's/#.*//g' | xargs)
 fi
 
+DEFINES="-DSECRET_FIREBASE_HOST=$FIREBASE_HOST"
+DEFINES="${DEFINES} -DSECRET_FIREBASE_AUTH=$FIREBASE_AUTH"
+DEFINES="${DEFINES} -DSECRET_WIFI_SSID=$WIFI_SSID"
+DEFINES="${DEFINES} -DSECRET_WIFI_PW=$WIFI_PW"
+DEFINES="${DEFINES} -DSOUND_VOLUME=$SOUND_VOLUME"
+
 arduino-cli compile \
     -b esp32:esp32:esp32 \
     --build-properties \
-        "build.defines=-DSECRET_FIREBASE_HOST=$FIREBASE_HOST -DSECRET_FIREBASE_AUTH=$FIREBASE_AUTH -DSECRET_WIFI_SSID=$WIFI_SSID -DSECRET_WIFI_PW=$WIFI_PW" \
+        "build.defines=${DEFINES}" \
     "$SKETCH" "$@"
-
